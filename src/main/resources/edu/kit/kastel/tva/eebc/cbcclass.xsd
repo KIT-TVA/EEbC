@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:cbcclass="http://cbc.isf.cs.tu-bs.de/cbcclass" xmlns:de.tu-bs.cs.isf.cbc.cbcmodel="http://cbc.isf.cs.tu-bs.de/cbcmodel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ecore:nsPrefix="cbcclass" ecore:package="de.tu_bs.cs.isf.cbc.cbcclass" targetNamespace="http://cbc.isf.cs.tu-bs.de/cbcclass">
+  <xsd:import namespace="http://cbc.isf.cs.tu-bs.de/cbcmodel" schemaLocation="cbcmodel.xsd"/>
+  <xsd:import namespace="http://www.eclipse.org/emf/2002/Ecore" schemaLocation="Ecore.xsd"/>
+  <xsd:element ecore:ignore="true" name="ModelClass" type="cbcclass:ModelClass"/>
+  <xsd:element ecore:ignore="true" name="Field" type="cbcclass:Field"/>
+  <xsd:element ecore:ignore="true" name="Method" type="cbcclass:Method"/>
+  <xsd:element ecore:ignore="true" name="Parameter" type="cbcclass:Parameter"/>
+  <xsd:complexType name="ModelClass">
+    <xsd:sequence>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="fields" type="cbcclass:Field"/>
+      <xsd:element ecore:opposite="parentClass" ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="methods" type="cbcclass:Method"/>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="classInvariants" type="de.tu-bs.cs.isf.cbc.cbcmodel:Condition"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="ecore:EString"/>
+    <xsd:attribute name="javaClassURI" type="ecore:EString"/>
+    <xsd:attribute name="package" type="ecore:EString"/>
+    <xsd:attribute default="default" ecore:unsettable="false" name="feature" type="ecore:EString"/>
+    <xsd:attribute ecore:reference="cbcclass:ModelClass" name="inheritsFrom" type="xsd:anyURI"/>
+  </xsd:complexType>
+  <xsd:simpleType name="Visibility">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="PUBLIC"/>
+      <xsd:enumeration value="PRIVATE"/>
+      <xsd:enumeration value="PROTECTED"/>
+      <xsd:enumeration value="PACKAGE"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="Field">
+    <xsd:attribute ecore:unsettable="false" name="visibility" type="cbcclass:Visibility"/>
+    <xsd:attribute name="type" type="ecore:EString"/>
+    <xsd:attribute name="name" type="ecore:EString"/>
+    <xsd:attribute ecore:unsettable="false" name="isStatic" type="ecore:EBoolean"/>
+    <xsd:attribute ecore:unsettable="false" name="isFinal" type="ecore:EBoolean"/>
+    <xsd:attribute ecore:changeable="false" ecore:derived="true" ecore:transient="true" ecore:volatile="true" name="displayedName" type="ecore:EString"/>
+  </xsd:complexType>
+  <xsd:complexType name="Method">
+    <xsd:sequence>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="parameters" type="cbcclass:Parameter"/>
+    </xsd:sequence>
+    <xsd:attribute name="cbcDiagramURI" type="ecore:EString"/>
+    <xsd:attribute name="name" type="ecore:EString"/>
+    <xsd:attribute name="assignable" type="ecore:EString"/>
+    <xsd:attribute ecore:opposite="methodObj" ecore:reference="de.tu-bs.cs.isf.cbc.cbcmodel:CbCFormula" name="cbcStartTriple" type="xsd:anyURI"/>
+    <xsd:attribute ecore:opposite="methods" ecore:reference="cbcclass:ModelClass" name="parentClass" type="xsd:anyURI"/>
+    <xsd:attribute ecore:derived="true" ecore:reference="de.tu-bs.cs.isf.cbc.cbcmodel:Condition" ecore:transient="true" ecore:volatile="true" name="precondition" type="xsd:anyURI"/>
+    <xsd:attribute ecore:derived="true" ecore:reference="de.tu-bs.cs.isf.cbc.cbcmodel:Condition" ecore:transient="true" ecore:volatile="true" name="postcondition" type="xsd:anyURI"/>
+    <xsd:attribute name="returnType" type="ecore:EString"/>
+    <xsd:attribute ecore:unsettable="false" name="visibility" type="cbcclass:Visibility"/>
+    <xsd:attribute ecore:derived="true" ecore:transient="true" ecore:volatile="true" name="signature" type="ecore:EString"/>
+    <xsd:attribute ecore:unsettable="false" name="isStatic" type="ecore:EBoolean"/>
+  </xsd:complexType>
+  <xsd:complexType name="Parameter">
+    <xsd:attribute name="type" type="ecore:EString"/>
+    <xsd:attribute default="" ecore:unsettable="false" name="name" type="ecore:EString"/>
+  </xsd:complexType>
+</xsd:schema>

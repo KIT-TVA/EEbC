@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:cbcclass="http://cbc.isf.cs.tu-bs.de/cbcclass" xmlns:de.tu-bs.cs.isf.cbc.cbcmodel="http://cbc.isf.cs.tu-bs.de/cbcmodel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ecore:nsPrefix="de.tu-bs.cs.isf.cbc.cbcmodel" ecore:package="de.tu_bs.cs.isf.cbc.cbcmodel" targetNamespace="http://cbc.isf.cs.tu-bs.de/cbcmodel">
+  <xsd:import namespace="http://cbc.isf.cs.tu-bs.de/cbcclass" schemaLocation="cbcclass.xsd"/>
+  <xsd:import namespace="http://www.eclipse.org/emf/2002/Ecore" schemaLocation="Ecore.xsd"/>
+  <xsd:element ecore:ignore="true" name="CbCFormula" type="de.tu-bs.cs.isf.cbc.cbcmodel:CbCFormula"/>
+  <xsd:element ecore:ignore="true" name="Condition" type="de.tu-bs.cs.isf.cbc.cbcmodel:Condition"/>
+  <xsd:element ecore:ignore="true" name="AbstractStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+  <xsd:element ecore:ignore="true" name="SkipStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:SkipStatement"/>
+  <xsd:element ecore:ignore="true" name="CompositionStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:CompositionStatement"/>
+  <xsd:element ecore:ignore="true" name="SelectionStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:SelectionStatement"/>
+  <xsd:element ecore:ignore="true" name="MethodStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:MethodStatement"/>
+  <xsd:element ecore:ignore="true" name="Variant" type="de.tu-bs.cs.isf.cbc.cbcmodel:Variant"/>
+  <xsd:element ecore:ignore="true" name="ReturnStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:ReturnStatement"/>
+  <xsd:element ecore:ignore="true" name="SmallRepetitionStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:SmallRepetitionStatement"/>
+  <xsd:element ecore:ignore="true" name="JavaVariables" type="de.tu-bs.cs.isf.cbc.cbcmodel:JavaVariables"/>
+  <xsd:element ecore:ignore="true" name="JavaVariable" type="de.tu-bs.cs.isf.cbc.cbcmodel:JavaVariable"/>
+  <xsd:element ecore:ignore="true" name="GlobalConditions" type="de.tu-bs.cs.isf.cbc.cbcmodel:GlobalConditions"/>
+  <xsd:element ecore:ignore="true" name="Renaming" type="de.tu-bs.cs.isf.cbc.cbcmodel:Renaming"/>
+  <xsd:element ecore:ignore="true" name="Rename" type="de.tu-bs.cs.isf.cbc.cbcmodel:Rename"/>
+  <xsd:element ecore:ignore="true" name="CbCProblem" type="de.tu-bs.cs.isf.cbc.cbcmodel:CbCProblem"/>
+  <xsd:element ecore:ignore="true" name="StrengthWeakStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:StrengthWeakStatement"/>
+  <xsd:element ecore:ignore="true" name="OriginalStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:OriginalStatement"/>
+  <xsd:element ecore:ignore="true" name="ConfToVarsMap" type="de.tu-bs.cs.isf.cbc.cbcmodel:ConfToVarsMap"/>
+  <xsd:element ecore:ignore="true" name="Security" type="de.tu-bs.cs.isf.cbc.cbcmodel:Security"/>
+  <xsd:element ecore:ignore="true" name="AtTypesToVarsMap" type="de.tu-bs.cs.isf.cbc.cbcmodel:AtTypesToVarsMap"/>
+  <xsd:element ecore:ignore="true" name="AtType" type="de.tu-bs.cs.isf.cbc.cbcmodel:AtType"/>
+  <xsd:complexType name="CbCFormula">
+    <xsd:sequence>
+      <xsd:element ecore:resolveProxies="true" name="statement" type="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+      <xsd:element ecore:resolveProxies="true" name="preCondition" type="de.tu-bs.cs.isf.cbc.cbcmodel:Condition"/>
+      <xsd:element ecore:resolveProxies="true" name="postCondition" type="de.tu-bs.cs.isf.cbc.cbcmodel:Condition"/>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="atType" type="de.tu-bs.cs.isf.cbc.cbcmodel:AtType"/>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="security" type="de.tu-bs.cs.isf.cbc.cbcmodel:Security"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="ecore:EString"/>
+    <xsd:attribute ecore:unsettable="false" name="proven" type="ecore:EBoolean"/>
+    <xsd:attribute name="comment" type="ecore:EString"/>
+    <xsd:attribute default="CONTRACT_OVERRIDING" ecore:unsettable="false" name="compositionTechnique" type="de.tu-bs.cs.isf.cbc.cbcmodel:CompositionTechnique"/>
+    <xsd:attribute default="" ecore:unsettable="false" name="className" type="ecore:EString"/>
+    <xsd:attribute default="" ecore:unsettable="false" name="methodName" type="ecore:EString"/>
+    <xsd:attribute ecore:opposite="cbcStartTriple" ecore:reference="cbcclass:Method" name="methodObj" type="xsd:anyURI"/>
+    <xsd:attribute ecore:unsettable="false" name="tested" type="ecore:EBoolean"/>
+  </xsd:complexType>
+  <xsd:complexType name="Condition">
+    <xsd:sequence>
+      <xsd:element ecore:unique="true" maxOccurs="unbounded" minOccurs="0" name="modifiables" nillable="true" type="ecore:EString"/>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="confToVarsMap" type="de.tu-bs.cs.isf.cbc.cbcmodel:ConfToVarsMap"/>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="atTypesToVarsMap" type="de.tu-bs.cs.isf.cbc.cbcmodel:AtTypesToVarsMap"/>
+      <xsd:element ecore:transient="true" ecore:unique="true" maxOccurs="unbounded" minOccurs="0" name="capsulesUsed" nillable="true" type="ecore:EString"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="ecore:EString"/>
+    <xsd:attribute name="codeRepresentation" type="ecore:EString"/>
+  </xsd:complexType>
+  <xsd:complexType name="AbstractStatement">
+    <xsd:annotation>
+      <xsd:appinfo ecore:key="operations" source="http://www.eclipse.org/emf/2002/Ecore">
+        <operation lowerBound="1" name="generateID"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element ecore:opposite="parent" ecore:resolveProxies="true" minOccurs="0" name="refinement" type="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+      <xsd:element ecore:resolveProxies="true" minOccurs="0" name="postCondition" type="de.tu-bs.cs.isf.cbc.cbcmodel:Condition"/>
+      <xsd:element ecore:resolveProxies="true" minOccurs="0" name="preCondition" type="de.tu-bs.cs.isf.cbc.cbcmodel:Condition"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="ecore:EString"/>
+    <xsd:attribute ecore:opposite="refinement" ecore:reference="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement" name="parent" type="xsd:anyURI"/>
+    <xsd:attribute ecore:unsettable="false" name="proven" type="ecore:EBoolean"/>
+    <xsd:attribute name="comment" type="ecore:EString"/>
+    <xsd:attribute name="id" type="ecore:EString" use="required"/>
+    <xsd:attribute ecore:unsettable="false" name="tested" type="ecore:EBoolean"/>
+    <xsd:attribute name="context" type="ecore:EString"/>
+    <xsd:attribute name="typeableResult" type="ecore:EString"/>
+    <xsd:attribute name="typeableText" type="ecore:EString"/>
+    <xsd:attribute name="codeRepresentation" type="ecore:EString"/>
+  </xsd:complexType>
+  <xsd:complexType name="SkipStatement">
+    <xsd:complexContent>
+      <xsd:extension base="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CompositionStatement">
+    <xsd:complexContent>
+      <xsd:extension base="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement">
+        <xsd:sequence>
+          <xsd:element ecore:resolveProxies="true" name="firstStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+          <xsd:element ecore:resolveProxies="true" name="secondStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+          <xsd:element ecore:resolveProxies="true" name="intermediateCondition" type="de.tu-bs.cs.isf.cbc.cbcmodel:Condition"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SelectionStatement">
+    <xsd:complexContent>
+      <xsd:extension base="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement">
+        <xsd:sequence>
+          <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="guards" type="de.tu-bs.cs.isf.cbc.cbcmodel:Condition"/>
+          <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="commands" type="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+        </xsd:sequence>
+        <xsd:attribute ecore:unsettable="false" name="preProve" type="ecore:EBoolean"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="MethodStatement">
+    <xsd:complexContent>
+      <xsd:extension base="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Variant">
+    <xsd:attribute name="name" type="ecore:EString"/>
+  </xsd:complexType>
+  <xsd:complexType name="ReturnStatement">
+    <xsd:complexContent>
+      <xsd:extension base="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SmallRepetitionStatement">
+    <xsd:complexContent>
+      <xsd:extension base="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement">
+        <xsd:sequence>
+          <xsd:element ecore:resolveProxies="true" name="loopStatement" type="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+          <xsd:element ecore:resolveProxies="true" name="variant" type="de.tu-bs.cs.isf.cbc.cbcmodel:Variant"/>
+          <xsd:element ecore:resolveProxies="true" name="invariant" type="de.tu-bs.cs.isf.cbc.cbcmodel:Condition"/>
+          <xsd:element ecore:resolveProxies="true" name="guard" type="de.tu-bs.cs.isf.cbc.cbcmodel:Condition"/>
+        </xsd:sequence>
+        <xsd:attribute ecore:unsettable="false" name="variantProven" type="ecore:EBoolean"/>
+        <xsd:attribute ecore:unsettable="false" name="preProven" type="ecore:EBoolean"/>
+        <xsd:attribute ecore:unsettable="false" name="postProven" type="ecore:EBoolean"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="JavaVariables">
+    <xsd:sequence>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="variables" type="de.tu-bs.cs.isf.cbc.cbcmodel:JavaVariable"/>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="params" type="cbcclass:Parameter"/>
+    </xsd:sequence>
+    <xsd:attribute ecore:reference="cbcclass:Field" name="fields">
+      <xsd:simpleType>
+        <xsd:list itemType="xsd:anyURI"/>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="JavaVariable">
+    <xsd:attribute default="int a" ecore:unsettable="false" name="name" type="ecore:EString"/>
+    <xsd:attribute default="LOCAL" ecore:unsettable="false" name="kind" type="de.tu-bs.cs.isf.cbc.cbcmodel:VariableKind"/>
+    <xsd:attribute name="confidentiality" type="ecore:EString"/>
+    <xsd:attribute name="modifier" type="ecore:EString"/>
+    <xsd:attribute default="kind + &quot; &quot; + name" ecore:changeable="false" ecore:derived="true" ecore:transient="true" ecore:volatile="true" name="displayedName" type="ecore:EString"/>
+  </xsd:complexType>
+  <xsd:complexType name="GlobalConditions">
+    <xsd:sequence>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="conditions" type="de.tu-bs.cs.isf.cbc.cbcmodel:Condition"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Renaming">
+    <xsd:sequence>
+      <xsd:element ecore:resolveProxies="true" maxOccurs="unbounded" minOccurs="0" name="rename" type="de.tu-bs.cs.isf.cbc.cbcmodel:Rename"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Rename">
+    <xsd:attribute name="type" type="ecore:EString"/>
+    <xsd:attribute name="function" type="ecore:EString"/>
+    <xsd:attribute name="newName" type="ecore:EString"/>
+  </xsd:complexType>
+  <xsd:complexType name="CbCProblem">
+    <xsd:sequence>
+      <xsd:element ecore:resolveProxies="true" minOccurs="0" name="globalcondition" type="de.tu-bs.cs.isf.cbc.cbcmodel:GlobalConditions"/>
+      <xsd:element ecore:resolveProxies="true" name="cbcformula" type="de.tu-bs.cs.isf.cbc.cbcmodel:CbCFormula"/>
+      <xsd:element ecore:resolveProxies="true" minOccurs="0" name="javaVariable" type="de.tu-bs.cs.isf.cbc.cbcmodel:JavaVariables"/>
+      <xsd:element ecore:resolveProxies="true" minOccurs="0" name="renaming" type="de.tu-bs.cs.isf.cbc.cbcmodel:Renaming"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="StrengthWeakStatement">
+    <xsd:complexContent>
+      <xsd:extension base="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="VariableKind">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="LOCAL"/>
+      <xsd:enumeration value="PARAM"/>
+      <xsd:enumeration value="RETURN"/>
+      <xsd:enumeration value="GLOBAL"/>
+      <xsd:enumeration value="GLOBAL_PARAM"/>
+      <xsd:enumeration value="RETURNPARAM"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CompositionTechnique">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="CONTRACT_OVERRIDING"/>
+      <xsd:enumeration value="EXPLICIT_CONTRACTING"/>
+      <xsd:enumeration value="CONJUNCTIVE_CONTRACTING"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="OriginalStatement">
+    <xsd:complexContent>
+      <xsd:extension base="de.tu-bs.cs.isf.cbc.cbcmodel:AbstractStatement"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:instanceClass="java.util.Map$Entry" name="ConfToVarsMap">
+    <xsd:attribute name="key" type="ecore:EString"/>
+    <xsd:attribute ecore:reference="de.tu-bs.cs.isf.cbc.cbcmodel:Security" name="value" type="xsd:anyURI"/>
+  </xsd:complexType>
+  <xsd:complexType name="Security">
+    <xsd:attribute name="level" type="ecore:EString"/>
+    <xsd:attribute name="mutationModifier" type="ecore:EString"/>
+  </xsd:complexType>
+  <xsd:complexType ecore:instanceClass="java.util.Map$Entry" name="AtTypesToVarsMap">
+    <xsd:attribute name="key" type="ecore:EString"/>
+    <xsd:attribute ecore:reference="de.tu-bs.cs.isf.cbc.cbcmodel:AtType" name="value">
+      <xsd:simpleType>
+        <xsd:list itemType="xsd:anyURI"/>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="AtType">
+    <xsd:attribute name="name" type="ecore:EString"/>
+  </xsd:complexType>
+</xsd:schema>
